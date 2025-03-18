@@ -15,6 +15,21 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.JedisPoolConfig;
 
+//import static org.junit.jupiter.api.Assertions.*;
+//import static org.mockito.Mockito.*;
+//
+//import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.extension.ExtendWith;
+//import org.mockito.InjectMocks;
+//import org.mockito.Mock;
+//import org.mockito.junit.jupiter.MockitoExtension;
+//import org.springframework.data.redis.connection.RedisConnectionFactory;
+//import org.springframework.data.redis.core.RedisTemplate;
+//import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+//import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+
+
 @Configuration
 public class RedisConfig {
     private static final Logger logger = LoggerFactory.getLogger(RedisConfig.class);
@@ -58,8 +73,15 @@ public class RedisConfig {
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory);
+
+        // Set key and value serializers
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+
+        // Set hash key and value serializers
+        template.setHashKeySerializer(new StringRedisSerializer());
+        template.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
+
         return template;
     }
 

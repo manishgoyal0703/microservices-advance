@@ -36,4 +36,21 @@ class RedisConfigTest {
         assertNotNull(redisTemplate);
         assertNotNull(redisTemplate.getConnectionFactory());
     }
+
+    @Test
+    void testRedisTemplate() {
+        // Act
+        RedisTemplate<String, Object> redisTemplate = redisConfig.redisTemplate(redisConnectionFactory);
+
+        // Assert
+        assertNotNull(redisTemplate);
+        assertEquals(redisConnectionFactory, redisTemplate.getConnectionFactory());
+
+        // Verify serializers
+        assertInstanceOf(StringRedisSerializer.class, redisTemplate.getKeySerializer());
+        assertInstanceOf(GenericJackson2JsonRedisSerializer.class, redisTemplate.getValueSerializer());
+        assertInstanceOf(StringRedisSerializer.class, redisTemplate.getHashKeySerializer());
+        assertInstanceOf(GenericJackson2JsonRedisSerializer.class, redisTemplate.getHashValueSerializer());
+    }
+
 }
