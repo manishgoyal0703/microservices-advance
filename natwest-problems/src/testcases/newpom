@@ -89,3 +89,5 @@
         <maven.compiler.target>21</maven.compiler.target>
     </properties>
 </project>
+
+I am setting up new java 8 project so can you tell me what dependencies we will need to add in pom since this module will be responsible to get the data from upstreams like argon where we can receive message or file which we need to store the file in the server location. After that process that message and publish in redis stream. so that other consumer can consume. Also what will be the folder structure. so what packages n all we will need it.
