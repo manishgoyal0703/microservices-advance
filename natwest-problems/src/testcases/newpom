@@ -1,5 +1,15 @@
- <dependencies>
-        <!-- JUnit 5 (JUnit Jupiter API and Engine) -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>mockito-bytebuddy-demo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <!-- JUnit 5 for testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -11,7 +21,7 @@
             <version>5.9.0</version>
         </dependency>
 
-        <!-- Mockito (Main and Inline for mocking final classes, methods) -->
+        <!-- Mockito 5 for mocking -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -23,31 +33,59 @@
             <version>5.3.1</version>
         </dependency>
 
-        <!-- ByteBuddy -->
+        <!-- Byte Buddy for bytecode manipulation -->
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
-            <version>1.14.5</version>
+            <version>1.17.4</version> <!-- Latest version -->
         </dependency>
 
-        <!-- ByteBuddy Agent for Testing -->
+        <!-- Byte Buddy Agent (needed for bytecode manipulation during tests) -->
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy-agent</artifactId>
-            <version>1.14.5</version>
+            <version>1.17.4</version> <!-- Latest version -->
             <scope>test</scope>
         </dependency>
 
+        <!-- Spring Testing (for Spring context-based tests) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>5.3.24</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Spring Data Redis (if needed) -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>3.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Maven Surefire Plugin for Running Tests -->
+            <!-- Maven Surefire Plugin to run JUnit 5 tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <version>3.0.0-M5</version> <!-- Latest version supporting JUnit 5 -->
+                <configuration>
+                    <!-- Ensure JUnit 5 tests are discovered -->
+                    <useModulePath>false</useModulePath>
+                    <dependenciesToScan>
+                        <dependency>junit:junit</dependency>
+                        <dependency>org.junit.jupiter:junit-jupiter-api</dependency>
+                    </dependenciesToScan>
+                </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <properties>
+        <!-- Java version compatibility -->
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+    </properties>
 </project>
